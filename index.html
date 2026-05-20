@@ -3,275 +3,464 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Mahomies Graphics</title>
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Impact, Arial Black, Arial, sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-background:#050505;
-color:white;
+  background:#030303;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,.12), transparent 28%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.07), transparent 26%),
+    linear-gradient(135deg,#000,#090909 45%,#000);
+  pointer-events:none;
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom, black, transparent 90%);
+  pointer-events:none;
+  z-index:-1;
 }
 
 .hero{
-padding:80px 20px;
-text-align:center;
-background:linear-gradient(to bottom,#c90000,#050505);
+  min-height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:90px 20px 70px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.hero-inner{
+  animation:fadeUp .9s ease both;
+}
+
+.badge{
+  display:inline-block;
+  padding:10px 18px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;
+  color:#dcdcdc;
+  letter-spacing:3px;
+  font-size:14px;
+  margin-bottom:22px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(10px);
 }
 
 .hero h1{
-font-size:70px;
-margin-bottom:15px;
-font-weight:900;
+  font-size:clamp(58px,12vw,150px);
+  line-height:.85;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  text-shadow:0 0 35px rgba(255,255,255,.18);
 }
 
 .hero p{
-font-size:20px;
-color:#d8d8d8;
+  margin:24px auto 34px;
+  max-width:700px;
+  color:#cfcfcf;
+  font-family:Arial, sans-serif;
+  font-size:20px;
+  line-height:1.6;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-block;
+  padding:15px 25px;
+  border-radius:999px;
+  text-decoration:none;
+  color:#000;
+  background:#fff;
+  font-weight:900;
+  letter-spacing:1px;
+  transition:.25s ease;
+}
+
+.btn.secondary{
+  background:transparent;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+}
+
+.btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 18px 45px rgba(255,255,255,.16);
 }
 
 .section{
-width:92%;
-max-width:1200px;
-margin:auto;
-padding:50px 0;
+  width:92%;
+  max-width:1250px;
+  margin:auto;
+  padding:65px 0;
 }
 
-.section h2{
-font-size:48px;
-margin-bottom:30px;
-color:#ff1b1b;
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:34px;
+}
+
+.section-title h2{
+  font-size:clamp(42px,7vw,82px);
+  text-transform:uppercase;
+}
+
+.section-title p{
+  color:#aaa;
+  font-family:Arial, sans-serif;
+  max-width:360px;
+  line-height:1.5;
 }
 
 .card{
-display:flex;
-gap:40px;
+  position:relative;
+  display:grid;
+  grid-template-columns:430px 1fr;
+  gap:48px;
+  align-items:center;
+  background:linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.15);
+  padding:32px;
+  border-radius:30px;
+  margin-bottom:30px;
+  overflow:hidden;
+  box-shadow:0 25px 70px rgba(0,0,0,.65);
+  animation:fadeUp .8s ease both;
+  transition:.28s ease;
+}
 
-align-items:center;
+.card:nth-of-type(2){animation-delay:.08s;}
+.card:nth-of-type(3){animation-delay:.16s;}
+.card:nth-of-type(4){animation-delay:.24s;}
 
-background:#0d0d0d;
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.16), transparent);
+  transform:translateX(-120%);
+  transition:.7s ease;
+}
 
-padding:30px;
+.card:hover::before{
+  transform:translateX(120%);
+}
 
-border-radius:25px;
-
-margin-bottom:30px;
-
-border:1px solid rgba(255,255,255,.08);
-
-box-shadow:0 0 30px rgba(255,0,0,.08);
+.card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.38);
 }
 
 .preview{
-width:420px;
-height:260px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
+  position:relative;
+  z-index:1;
+  height:280px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .preview img{
-width:100%;
-height:100%;
-object-fit:contain;
-border-radius:20px;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:grayscale(100%) contrast(1.12) drop-shadow(0 18px 25px rgba(0,0,0,.85));
+  transition:.35s ease;
+}
+
+.card:hover .preview img{
+  transform:rotate(-2deg) scale(1.06);
+  filter:grayscale(0%) contrast(1.1) drop-shadow(0 24px 35px rgba(255,255,255,.1));
 }
 
 .info{
-flex:1;
+  position:relative;
+  z-index:1;
+}
+
+.option{
+  color:#bdbdbd;
+  font-size:18px;
+  letter-spacing:2px;
+  margin-bottom:10px;
 }
 
 .info h3{
-font-size:52px;
-margin-bottom:15px;
+  font-size:clamp(42px,6vw,70px);
+  line-height:.95;
+  margin-bottom:18px;
+  text-transform:uppercase;
 }
 
-.info p{
-font-size:24px;
-color:#d2d2d2;
-line-height:1.6;
+.price{
+  display:inline-block;
+  background:#fff;
+  color:#000;
+  padding:10px 18px;
+  border-radius:12px;
+  font-size:34px;
+  margin-bottom:22px;
+  box-shadow:0 0 30px rgba(255,255,255,.12);
 }
 
-.bottom{
-margin-top:40px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-background:#0d0d0d;
-
-padding:30px;
-
-border-radius:25px;
-
-border:1px solid rgba(255,255,255,.08);
+.info ul{
+  list-style:none;
+  display:grid;
+  gap:12px;
+  color:#d6d6d6;
+  font-family:Arial, sans-serif;
+  font-size:20px;
 }
 
-.orders h3{
-font-size:42px;
+.info li::before{
+  content:"✓";
+  margin-right:12px;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:50%;
+  padding:1px 5px;
 }
 
-.orders span{
-color:#ffbf00;
+.stats{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:25px;
+  align-items:center;
+  margin-top:42px;
+  padding:34px;
+  border-radius:30px;
+  background:#fff;
+  color:#000;
+  animation:fadeUp .9s ease both;
 }
 
-.orders p{
-margin-top:12px;
-font-size:20px;
-color:#cfcfcf;
+.stats h3{
+  font-size:clamp(34px,5vw,58px);
+  text-transform:uppercase;
+}
+
+.stats span{
+  display:inline-block;
+  margin-left:8px;
+  transform:translateY(2px);
+}
+
+.stats p{
+  margin-top:8px;
+  color:#333;
+  font-family:Arial, sans-serif;
+  font-size:18px;
 }
 
 .contact{
-padding:22px 40px;
+  color:#fff;
+  background:#000;
+  border-radius:18px;
+  padding:20px 28px;
+  font-size:28px;
+  text-decoration:none;
+  transition:.25s ease;
+  white-space:nowrap;
+}
 
-border:3px solid red;
-
-border-radius:18px;
-
-font-size:28px;
-
-font-weight:800;
-
-color:#ff3030;
+.contact:hover{
+  transform:translateY(-4px);
+  background:#222;
 }
 
 .footer{
-text-align:center;
-padding:50px;
-color:#777;
-font-size:20px;
+  width:92%;
+  max-width:1250px;
+  margin:0 auto;
+  padding:35px 0 50px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid rgba(255,255,255,.12);
+  color:#777;
+  font-family:Arial, sans-serif;
+}
+
+.logo-mark{
+  color:#fff;
+  font-family:Impact, Arial Black, Arial, sans-serif;
+  font-size:30px;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(28px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 @media(max-width:900px){
+  .hero{
+    min-height:auto;
+  }
 
-.card{
-flex-direction:column;
+  .section-title{
+    display:block;
+  }
+
+  .section-title p{
+    margin-top:10px;
+  }
+
+  .card{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:22px;
+  }
+
+  .preview{
+    height:auto;
+    min-height:220px;
+  }
+
+  .info{
+    text-align:center;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .contact{
+    white-space:normal;
+  }
+
+  .footer{
+    flex-direction:column;
+    text-align:center;
+  }
 }
-
-.preview{
-width:100%;
-height:auto;
-}
-
-.info h3{
-font-size:40px;
-text-align:center;
-}
-
-.info p{
-text-align:center;
-}
-
-.bottom{
-flex-direction:column;
-gap:25px;
-text-align:center;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-<div class="hero">
-<h1>Mahomies Graphics</h1>
-<p>Sports graphics • Player edits • Custom designs</p>
-</div>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="badge">CUSTOM SPORTS GRAPHICS</div>
+    <h1>Mahomies<br>Graphics</h1>
+    <p>Clean black-and-white graphic cards for team logos, player edits, Roblox-style headshots, and custom design work.</p>
+    <div class="hero-buttons">
+      <a class="btn" href="#options">View Options</a>
+      <a class="btn secondary" href="#contact">Order Now</a>
+    </div>
+  </div>
+</header>
 
-<div class="section">
+<main class="section" id="options">
 
-<h2>Graphic Options</h2>
+  <div class="section-title">
+    <h2>RAX Card Options</h2>
+    <p>Pick your style, send the images, and get a polished graphic ready to post.</p>
+  </div>
 
-<div class="card">
+  <section class="card">
+    <div class="preview">
+      <img src="images/teamlogos.png" alt="Team Logos card preview">
+    </div>
+    <div class="info">
+      <div class="option">OPTION 1</div>
+      <h3>Team Logos</h3>
+      <div class="price">50 RAX</div>
+      <ul>
+        <li>Team branding cards</li>
+        <li>Stadium themes</li>
+        <li>Clean logo layouts</li>
+      </ul>
+    </div>
+  </section>
 
-<div class="preview">
-<img src="images/teamlogos.png">
-</div>
+  <section class="card">
+    <div class="preview">
+      <img src="images/logoplayer.png" alt="Logo plus player card preview">
+    </div>
+    <div class="info">
+      <div class="option">OPTION 2</div>
+      <h3>Logo + Player</h3>
+      <div class="price">150 RAX</div>
+      <ul>
+        <li>Athlete renders</li>
+        <li>Premium sports look</li>
+        <li>Featured card style</li>
+      </ul>
+    </div>
+  </section>
 
-<div class="info">
-<h3>TEAM LOGOS</h3>
-<p>
-Custom logos and team branding graphics.
-</p>
-</div>
+  <section class="card">
+    <div class="preview">
+      <img src="images/headshot.png" alt="In-game headshot card preview">
+    </div>
+    <div class="info">
+      <div class="option">OPTION 3</div>
+      <h3>In-Game Headshot</h3>
+      <div class="price">50 RAX</div>
+      <ul>
+        <li>Roblox avatars</li>
+        <li>NPC portraits</li>
+        <li>Custom icons</li>
+      </ul>
+    </div>
+  </section>
 
-</div>
+  <section class="stats" id="contact">
+    <div>
+      <h3>Total Orders So Far:<span>36</span></h3>
+      <p>DM me for custom graphics, card requests, or any design work you need.</p>
+    </div>
+    <a class="contact" href="#">CONTACT ON REAL: @Mahomie</a>
+  </section>
 
-<div class="card">
+</main>
 
-<div class="preview">
-<img src="images/logoplayer.png">
-</div>
-
-<div class="info">
-<h3>LOGO + PLAYER</h3>
-<p>
-Player graphics with logos, lighting,
-effects and premium edits.
-</p>
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="preview">
-<img src="images/headshot.png">
-</div>
-
-<div class="info">
-<h3>IN-GAME HEADSHOT</h3>
-<p>
-Game style profile cards,
-avatars and custom portraits.
-</p>
-</div>
-
-</div>
-
-<div class="bottom">
-
-<div class="orders">
-
-<h3>
-TOTAL ORDERS SO FAR:
-<span>36</span>
-</h3>
-
-<p>
-DM me for graphics, card requests,
-or custom work.
-</p>
-
-</div>
-
-<div class="contact">
-CONTACT ON REAL: @Mahomie
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-Mahomies Graphics © 2026
-</div>
+<footer class="footer">
+  <div class="logo-mark">MGFX</div>
+  <div>© 2026 Mahomies Graphics. All rights reserved.</div>
+</footer>
 
 </body>
 </html>
